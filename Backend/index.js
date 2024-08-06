@@ -62,18 +62,18 @@ app.post('/login', async (req, res) => {
     const { usernameInput, passwordInput } = req.body
     const users = await knex('users').where({ username: usernameInput })
     if (users.length === 0) {
-      res.send('username not found')
+      return res.status(301).json({message:'username not found'})
     }
     const user = users[0];
     const isValid = await bcrypt.compare(passwordInput, user.password)
     if (!isValid) {
-      res.send('incorrect password')
-      return
+      return res.status(301).json({message:'incorrect password'})
+
     }
     res.status(200).json({ message: 'Login successful', user: { id: user.id, username: user.username } });
   } catch (error) {
     console.error('Login error:', error);
-    res.status(500).json({ message: 'Server error during login' });
+    return res.status(500).json({ message: 'Server error during login' });
   }
 
 })
