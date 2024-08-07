@@ -13,7 +13,6 @@ export const Login = () => {
   const [usernameInput, setUsernameInput] = useState('')
   const [passwordInput, setPasswordInput] = useState('')
   const [message, setMessage] = useState('')
-  const [authUser, setAuthUser] = useEffect(null)
 
   const submitLogin = async () => {
     try {
@@ -28,9 +27,7 @@ export const Login = () => {
 
       if (response.ok) {
         setMessage(data.message)
-        if(message == 'Login successful'){
-          setAuthUser(usernameInput)
-        }
+        console.log(message)
       } else {
         setMessage(data.message || 'Login failed')
       }
