@@ -1,6 +1,7 @@
 import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
 import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom';
 import { Button } from 'primereact/button'
 import { Link } from 'react-router-dom'
 
@@ -13,21 +14,27 @@ export const Login = () => {
   const [usernameInput, setUsernameInput] = useState('')
   const [passwordInput, setPasswordInput] = useState('')
   const [message, setMessage] = useState('')
+  const navigate = useNavigate();
+
 
   const submitLogin = async () => {
+
     try {
       const response = await fetch(`${apiURL}login/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({usernameInput, passwordInput})
+        body: JSON.stringify({ usernameInput, passwordInput })
       })
       const data = await response.json()
 
       if (response.ok) {
         setMessage(data.message)
-        console.log(message)
+        localStorage.setItem('userId', data.user.id);
+        localStorage.setItem('username', usernameInput);
+        navigate(`/UserInventory/${data.user.id}`)
+
       } else {
         setMessage(data.message || 'Login failed')
       }
@@ -37,10 +44,14 @@ export const Login = () => {
     }
 
   }
+  useEffect(() => {
+    console.log(message);
+  }, [message]);
+
 
   return (
     <>
-      <h1>Login In or Create an Account</h1>
+      <h1>Login In or Create an Account</h1 >
       <InputText placeholder='Username' value={usernameInput} onChange={(e) => setUsernameInput(e.target.value)} />
       <Password placeholder='Password' value={passwordInput} onChange={(e) => setPasswordInput(e.target.value)} feedback={false} tabIndex={1} />
       <Button label="Login" onClick={submitLogin} />
