@@ -48,9 +48,9 @@ export const UserInventory = () => {
         body: JSON.stringify({
           item_name: itemName,
           description: itemDescription,
-          quantity: parseInt(itemQuantity, 10),
+          quantity: itemQuantity,
           imageLink: itemImage,
-          price: itemPrice // Keeping price as a string
+          price: itemPrice
         }),
       });
       if (response.ok) {
@@ -61,11 +61,11 @@ export const UserInventory = () => {
       } else {
         const errorData = await response.json();
         console.error('Edit failed:', errorData);
-        // You could add a user-facing error message here
+
       }
     } catch (err) {
       console.error('Error editing item:', err);
-      // You could add a user-facing error message here
+
     }
   };
 
