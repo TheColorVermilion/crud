@@ -2,7 +2,7 @@
 
   "scripts": {
 
-    "start": "nodemon index.js"
+    "start": "nodem index.js"
 
   },
 
