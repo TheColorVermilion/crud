@@ -106,7 +106,7 @@ export const UserInventory = () => {
 
   useEffect(() => {
     fetchUserInventory();
-  }, []);
+  }, [id, fetchUserInventory]);
 
   return (
     <>

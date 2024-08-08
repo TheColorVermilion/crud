@@ -29,7 +29,7 @@ export const ItemDetails = () => {
 
   useEffect(() => {
     fetchItemDetails();
-  }, []);
+  }, [id, fetchItemDetails]);
 
 
   return (
