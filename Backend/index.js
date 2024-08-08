@@ -1,7 +1,7 @@
 const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
-const port = 5080
+const port = process.env.PORT || 5080;
 
 
 const bcrypt = require('bcrypt');

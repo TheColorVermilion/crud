@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import { Card } from 'primereact/card';
 
-const apiURL = 'http://localhost:5080/'
+const apiURL = 'https://crud-backend-0aoh.onrender.com'
 export const ItemDetails = () => {
   const [itemDetails, setItemDetails] = useState([]);
   const { id } = useParams();
@@ -29,7 +29,7 @@ export const ItemDetails = () => {
 
   useEffect(() => {
     fetchItemDetails();
-  }, [id, fetchItemDetails]);
+  }, [id]);
 
 
   return (
@@ -38,7 +38,7 @@ export const ItemDetails = () => {
       <div>
         {itemDetails.map((item) => (
           <Card key={item.id}>
-            <img src={`${item.image}`}/>
+            <img src={`${item.image}`} alt={item.name} />
             <h1>{item.name}</h1>
             <p>{item.price}</p>
             <p>{item.description}</p>
