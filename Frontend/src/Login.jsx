@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 
 
 
-const apiURL = 'https://crud-backend-0aoh.onrender.com'
+const apiURL = 'https://crud-backend-0aoh.onrender.com/'
 
 
 export const Login = () => {

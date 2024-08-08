@@ -4,7 +4,7 @@ import { Card } from 'primereact/card';
 import { InputText } from 'primereact/inputtext';
 import { useState, useEffect } from 'react'
 
-const apiURL = 'https://crud-backend-0aoh.onrender.com'
+const apiURL = 'https://crud-backend-0aoh.onrender.com/'
 
 export const NewUser = () => {
   const [username, setUsername] = useState('');

@@ -6,7 +6,7 @@ import { Card } from 'primereact/card';
 import { InputText } from 'primereact/inputtext';
 import { InputNumber } from 'primereact/inputnumber';
 
-const apiURL = 'https://crud-backend-0aoh.onrender.com';
+const apiURL = 'https://crud-backend-0aoh.onrender.com/';
 
 export const UserInventory = () => {
   const [userInventory, setUserInventory] = useState([]);
