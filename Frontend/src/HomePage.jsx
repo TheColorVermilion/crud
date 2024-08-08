@@ -49,7 +49,7 @@ export const HomePage = () => {
         {fullInventory.map((item) => (
           <Link key={item.id} to={`/ItemDetails/${item.id}`}>
             <Card className="card">
-              <img className='image'src={`${item.image}`}/>
+              <img className='image'src={`${item.image}`} alt={item.name} />
               <p>{item.name}</p>
               <p>{item.price}</p>
               <p>{miniDescription(item.description)}</p>
