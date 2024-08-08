@@ -1,12 +1,22 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Card } from 'primereact/card';
+import './homepage.css'
 const apiURL = 'http://localhost:5080/'
 
 
 
 export const HomePage = () => {
   const [fullInventory, setFullInventory] = useState([]);
+
+  const miniDescription = (text) => {
+    if(text.length <= 100){
+      return text
+    }else{
+      return text.substr(0, 100) + '\u2026'
+    }
+
+  }
 
 
   const fetchAllItems = async () => {
@@ -18,7 +28,9 @@ export const HomePage = () => {
         seller: item.user_id,
         name: item.item_name,
         description: item.description,
-        inStock: item.quantity
+        inStock: item.quantity,
+        price: item.price,
+        image: item.imageLink
       })))
     } catch (err) {
       console.error(err)
@@ -32,13 +44,15 @@ export const HomePage = () => {
 
   return (
     <>
-      <h1>Home</h1>
+      <h1>The CRUD Inventory</h1>
       <div>
         {fullInventory.map((item) => (
           <Link key={item.id} to={`/ItemDetails/${item.id}`}>
-            <Card >
+            <Card className="card">
+              <img className='image'src={`${item.image}`}/>
               <p>{item.name}</p>
-              <p>{item.description}</p>
+              <p>{item.price}</p>
+              <p>{miniDescription(item.description)}</p>
               <p>number left in stock: {item.inStock}</p>
             </Card>
           </Link>

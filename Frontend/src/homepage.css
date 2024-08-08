@@ -1,0 +1,16 @@
+.card {
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+.image {
+  max-width: 400px;
+  max-height: 400px;
+  margin: 0 auto;
+}

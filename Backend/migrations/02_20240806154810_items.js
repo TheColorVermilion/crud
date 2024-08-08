@@ -9,6 +9,8 @@ exports.up = function(knex) {
     table.string('item_name').notNullable();
     table.string('description');
     table.integer('quantity');
+    table.string('price')
+    table.string('imageLink')
       table.foreign('user_id').references('users.id').onDelete('CASCADE');
 
   })

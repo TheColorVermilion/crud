@@ -1,17 +1,24 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Button } from 'primereact/button';
 import { Link } from 'react-router-dom';
 import { Card } from 'primereact/card';
+import { InputText } from 'primereact/inputtext';
+import { InputNumber } from 'primereact/inputnumber';
 
-const apiURL = 'http://localhost:5080/'
+const apiURL = 'http://localhost:5080/';
+
 export const UserInventory = () => {
   const [userInventory, setUserInventory] = useState([]);
+  const [editingItem, setEditingItem] = useState(null);
+  const [itemName, setItemName] = useState('');
+  const [itemDescription, setItemDescription] = useState('');
+  const [itemQuantity, setItemQuantity] = useState(0);
+  const [itemImage, setItemImage] = useState('');
+  const [itemPrice, setItemPrice] = useState('');
+
   const { id } = useParams();
-  const userId = Number(localStorage.getItem('userId'));
   const username = localStorage.getItem('username');
-
-
 
   const fetchUserInventory = async () => {
     try {
@@ -22,16 +29,45 @@ export const UserInventory = () => {
         seller: item.user_id,
         name: item.item_name,
         description: item.description,
-        inStock: item.quantity
-      })))
+        inStock: item.quantity,
+        image: item.imageLink,
+        price: item.price
+      })));
     } catch (err) {
-      console.error(err)
+      console.error('Error fetching inventory:', err);
     }
-  }
+  };
 
-  const editItem = () => {
-
-  }
+  const editItem = async (itemId) => {
+    try {
+      const response = await fetch(`${apiURL}edititem/${itemId}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          item_name: itemName,
+          description: itemDescription,
+          quantity: parseInt(itemQuantity, 10),
+          imageLink: itemImage,
+          price: itemPrice // Keeping price as a string
+        }),
+      });
+      if (response.ok) {
+        const result = await response.json();
+        console.log('Edit successful:', result);
+        fetchUserInventory();
+        setEditingItem(null);
+      } else {
+        const errorData = await response.json();
+        console.error('Edit failed:', errorData);
+        // You could add a user-facing error message here
+      }
+    } catch (err) {
+      console.error('Error editing item:', err);
+      // You could add a user-facing error message here
+    }
+  };
 
   const deleteItem = async (itemId) => {
     if (window.confirm('Are you sure you want to delete this item?')) {
@@ -42,38 +78,66 @@ export const UserInventory = () => {
         if (response.ok) {
           console.log(await response.json());
           fetchUserInventory();
+        } else {
+          console.error('Delete failed:', await response.json());
         }
       } catch (err) {
-        console.error(err);
+        console.error('Error deleting item:', err);
       }
     }
-  }
+  };
+
+  const startEditingItem = (item) => {
+    setEditingItem(item.id);
+    setItemName(item.name);
+    setItemDescription(item.description);
+    setItemQuantity(item.inStock);
+    setItemImage(item.image);
+    setItemPrice(item.price);
+  };
+
+  const miniDescription = (text) => {
+    if(text.length <= 100){
+      return text;
+    } else {
+      return text.substr(0, 100) + '\u2026';
+    }
+  };
 
   useEffect(() => {
     fetchUserInventory();
   }, []);
 
-
   return (
     <>
-    <Card>
-    <h1>{username}'s Inventory</h1>
-    <p>to edit or delete idividual items click on them </p>
-    <Link to ='/NewItem'><Button label='Add Item to your Inventory'/></Link>
-    </Card>
-
-
-      <div>
-        {userInventory.map((item) => (
-          <Card key={item.id}>
-            <p>{item.name}</p>
-            <p>{item.description}</p>
-            <p>number left in stock: {item.inStock}</p>
-            <Button onClick={editItem} label='Edit'/>
-            <Button onClick={() => deleteItem(item.id)}label='Delete'/>
-          </Card>
-        ))}
-      </div>
+      <h1>{username}'s Inventory</h1>
+      <p>To edit or delete individual items click on them</p>
+      <Link to='/NewItem'><Button label='Add Item to your Inventory' /></Link>
+      {userInventory.map((item) => (
+        <Card className="card" key={item.id}>
+          {editingItem === item.id ? (
+            <>
+              <InputText value={itemName} onChange={(e) => setItemName(e.target.value)} placeholder="Item Name" />
+              <InputText value={itemPrice} onChange={(e) => setItemPrice(e.target.value)} placeholder="Price" />
+              <InputText value={itemDescription} onChange={(e) => setItemDescription(e.target.value)} placeholder="Description" />
+              <InputNumber value={itemQuantity} onValueChange={(e) => setItemQuantity(e.value)} placeholder="Quantity" />
+              <InputText value={itemImage} onChange={(e) => setItemImage(e.target.value)} placeholder="Image URL" />
+              <Button severity="success" onClick={() => editItem(item.id)} label='Save' />
+              <Button severity="warning" onClick={() => setEditingItem(null)} label='Cancel' />
+            </>
+          ) : (
+            <>
+              <img className='image' src={item.image} alt={item.name} />
+              <p>{item.name}</p>
+              <p>{item.price}</p>
+              <p>{miniDescription(item.description)}</p>
+              <p>Number left in stock: {item.inStock}</p>
+              <Button onClick={() => startEditingItem(item)} label='Edit' />
+              <Button severity="danger" onClick={() => deleteItem(item.id)} label='Delete' />
+            </>
+          )}
+        </Card>
+      ))}
     </>
-  )
-}
+  );
+};

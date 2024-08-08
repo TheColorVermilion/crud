@@ -5,6 +5,8 @@ import { Login } from './Login'
 import { ItemDetails } from './ItemDetails'
 import { UserInventory } from './UserInventory'
 import { NewItem } from './NewItem'
+import { NewUser } from './SignUp'
+
 
 function App() {
   return (
@@ -18,6 +20,7 @@ function App() {
           <Route path='/ItemDetails/:id' element={<ItemDetails/>}/>
           <Route path='/UserInventory/:id' element={<UserInventory/>}/>
           <Route path='/NewItem' element={<NewItem/>}/>
+          <Route path='/signup' element={<NewUser />} />
         </Routes>
       </BrowserRouter>
     </div>

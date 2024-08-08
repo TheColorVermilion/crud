@@ -38,10 +38,9 @@ app.get('/items/:id', (req, res) => {
 })
 //POST NEW ITEM
 app.post('/newitem', async (req, res) => {
-  console.log('Received data:', req.body);
   try {
-    const { user_id, item_name, description, quantity } = req.body
-    if (!user_id || !item_name || !description || quantity === undefined) {
+    const { user_id, item_name, description, quantity, price, imageLink} = req.body
+    if (!user_id || !item_name || !description || !quantity || !price) {
       return res.status(400).json({ message: 'All fields are required' });
     }
     const newItem = await knex('items')
@@ -49,26 +48,29 @@ app.post('/newitem', async (req, res) => {
       user_id,
       item_name,
       description,
-      quantity
+      quantity,
+      price,
+      imageLink
     })
-    .returning('*');  // This will return the inserted item
-    res.status(201).json({ message: 'Item Added', item: newItem[0] })
+  res.status(201).json({ message: 'Item Added', item: newItem })
   } catch (err) {
-    console.error('Error adding item:', err);
-    res.status(500).json({ message: 'Error adding item', error: err.message })
+    console.log(err);
+    res.status(301).send('error adding items')
   }
 })
 //PATCH EXISTING ITEM
 app.patch('/edititem/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const { user_id, item_name, description, quantity } = req.body
+    const { user_id, item_name, description, quantity, price, imageLink } = req.body
     const editedItem = await knex('items').where({item_id: id})
     .update({
       user_id,
       item_name,
       description,
-      quantity
+      quantity,
+      price,
+      imageLink
     })
   res.status(201).json({ message: 'Item updated', item: editedItem })
   } catch (err) {
