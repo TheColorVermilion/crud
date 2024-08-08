@@ -32,16 +32,16 @@ export const NavBar = () => {
     <>
       {!userId ? (
         <>
-          <Link to='/home'><Button label='Home' /></Link>
-          <Link to='/login'><Button label='Log In' /></Link>
+          <Link to='/home'><Button className="button" label='Home' /></Link>
+          <Link to='/login'><Button className="button" label='Log In' /></Link>
         </>
       ) : (
         <>
-          <Link to='/home'><Button label='Home' /></Link>
+          <Link to='/home'><Button className="button" label='Home' /></Link>
           <Link to={`/UserInventory/${userId}`}>
-            <Button label={`${username}'s Inventory`} />
+            <Button className="button" label={`${username}'s Inventory`} />
           </Link>
-          <Button label='Log Out' onClick={clearLogin} />
+          <Button className="button" label='Log Out' onClick={clearLogin} />
         </>
       )}
     </>

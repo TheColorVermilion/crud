@@ -55,7 +55,7 @@ export const NewUser = () => {
         <InputText placeholder="Last Name" value={lastname} onChange={(e) => setLastname(e.target.value)} />
         <InputText placeholder="Username" value={username} onChange={(e) =>  setUsername(e.target.value)} />
         <InputText placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-        <Link to={`/login`}><Button label='Submit' onClick={createUser} /></Link>
+        <Link to={`/login`}><Button className="button" label='Submit' onClick={createUser} /></Link>
       </Card>
     </>
   )

@@ -112,7 +112,8 @@ export const UserInventory = () => {
     <>
       <h1>{username}'s Inventory</h1>
       <p>To edit or delete individual items click on them</p>
-      <Link to='/NewItem'><Button label='Add Item to your Inventory' /></Link>
+      <Link to='/NewItem'><Button className="button" label='Add Item to your Inventory' /></Link>
+      <div className="inventory-grid">
       {userInventory.map((item) => (
         <Card className="card" key={item.id}>
           {editingItem === item.id ? (
@@ -122,8 +123,8 @@ export const UserInventory = () => {
               <InputText value={itemDescription} onChange={(e) => setItemDescription(e.target.value)} placeholder="Description" />
               <InputNumber value={itemQuantity} onValueChange={(e) => setItemQuantity(e.value)} placeholder="Quantity" />
               <InputText value={itemImage} onChange={(e) => setItemImage(e.target.value)} placeholder="Image URL" />
-              <Button severity="success" onClick={() => editItem(item.id)} label='Save' />
-              <Button severity="warning" onClick={() => setEditingItem(null)} label='Cancel' />
+              <Button className="button" severity="success" onClick={() => editItem(item.id)} label='Save' />
+              <Button className="button" severity="warning" onClick={() => setEditingItem(null)} label='Cancel' />
             </>
           ) : (
             <>
@@ -132,12 +133,13 @@ export const UserInventory = () => {
               <p>{item.price}</p>
               <p>{miniDescription(item.description)}</p>
               <p>Number left in stock: {item.inStock}</p>
-              <Button onClick={() => startEditingItem(item)} label='Edit' />
-              <Button severity="danger" onClick={() => deleteItem(item.id)} label='Delete' />
+              <Button className="button" onClick={() => startEditingItem(item)} label='Edit' />
+              <Button className="button" severity="danger" onClick={() => deleteItem(item.id)} label='Delete' />
             </>
           )}
         </Card>
       ))}
+      </div>
     </>
   );
 };

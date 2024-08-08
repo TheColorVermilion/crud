@@ -54,8 +54,8 @@ export const Login = () => {
       <h1>Login In or Create an Account</h1 >
       <InputText placeholder='Username' value={usernameInput} onChange={(e) => setUsernameInput(e.target.value)} />
       <Password placeholder='Password' value={passwordInput} onChange={(e) => setPasswordInput(e.target.value)} feedback={false} tabIndex={1} />
-      <Button label="Login" onClick={submitLogin} />
-      <Link to='/signup'><Button label="create new account" /></Link>
+      <Button className="button" label="Login" onClick={submitLogin} />
+      <Link to='/signup'><Button className="button" label="Create New Account" /></Link>
     </>
   )
 }

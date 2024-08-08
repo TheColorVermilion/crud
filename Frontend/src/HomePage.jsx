@@ -45,7 +45,7 @@ export const HomePage = () => {
   return (
     <>
       <h1>The CRUD Inventory</h1>
-      <div>
+      <div className="inventory-grid">
         {fullInventory.map((item) => (
           <Link key={item.id} to={`/ItemDetails/${item.id}`}>
             <Card className="card">
