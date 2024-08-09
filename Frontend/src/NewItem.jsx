@@ -4,8 +4,8 @@ import { Card } from 'primereact/card';
 import { InputText } from 'primereact/inputtext';
 import { useState, useEffect } from 'react'
 
-const apiURL = 'https://crud-backend-0aoh.onrender.com/'
-//http://localhost:5080/
+const apiURL = 'http://localhost:5080/'
+//https://crud-backend-0aoh.onrender.com/
 
 export const NewItem = () => {
   const [itemName, setItemName] = useState('');

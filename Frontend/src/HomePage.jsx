@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Card } from 'primereact/card';
 import './homepage.css'
-const apiURL = 'https://crud-backend-0aoh.onrender.com/'
-//http://localhost:5080/
+const apiURL = 'http://localhost:5080/'
+//https://crud-backend-0aoh.onrender.com/
 
 
 

@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import { Card } from 'primereact/card';
 
-const apiURL = 'https://crud-backend-0aoh.onrender.com/'
-//http://localhost:5080/
+const apiURL = 'http://localhost:5080/'
+//https://crud-backend-0aoh.onrender.com/
 export const ItemDetails = () => {
   const [itemDetails, setItemDetails] = useState([]);
   const { id } = useParams();
