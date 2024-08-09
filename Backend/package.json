@@ -1,6 +1,6 @@
 {
 "scripts": {
-  "migrate": "knex migrate:latest && knex seed:run",
+  "migrate": "knex migrate: rolllback && knex migrate:latest && knex seed:run",
   "start": "node index.js"
 
 },
