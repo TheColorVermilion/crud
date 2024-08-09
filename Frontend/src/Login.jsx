@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom'
 
 
 const apiURL = 'https://crud-backend-0aoh.onrender.com/'
+//http://localhost:5080/
 
 
 export const Login = () => {
@@ -28,7 +29,6 @@ export const Login = () => {
         body: JSON.stringify({ usernameInput, passwordInput })
       })
       const data = await response.json()
-      console.log(data)
 
       if (response.ok) {
         setMessage(data.message)
