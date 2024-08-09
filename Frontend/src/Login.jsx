@@ -20,7 +20,7 @@ export const Login = () => {
   const submitLogin = async () => {
 
     try {
-      const response = await fetch(`${apiURL}login/`, {
+      const response = await fetch(`${apiURL}login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -28,6 +28,7 @@ export const Login = () => {
         body: JSON.stringify({ usernameInput, passwordInput })
       })
       const data = await response.json()
+      console.log(data)
 
       if (response.ok) {
         setMessage(data.message)

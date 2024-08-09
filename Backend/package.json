@@ -1,7 +1,7 @@
 {
 "scripts": {
   "migrate": "knex migrate:latest && knex seed:run",
-  "start": "npm run migrate && node index.js"
+  "start": "node index.js"
 },
   "dependencies": {
     "bcrypt": "^5.1.1",

@@ -11,3 +11,5 @@ alternate methods
 
 currently when you create a new item and it instatly links you to the user inventory page the new item isnt shown
 not 100% how to fix but if i have time i will try, it does show up if you hit home and then back to the inventory
+
+seems to be an issue with the deployed site with logins but the local build functioned
